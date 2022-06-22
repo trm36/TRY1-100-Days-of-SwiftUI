@@ -9,82 +9,95 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showingAlert = false
+    @State private var showingScore = false
+    @State private var scoreTitle = ""
+    
+    @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
+    @State private var correctAnswer = Int.random(in: 0...2)
     
     var body: some View {
         ZStack {
-            VStack(spacing: 0) {
-                Button {
-                    print("Edit button was tapped")
-                } label: {
-                    Image(systemName: "pencil")
-//                        .frame(minWidth: 50, minHeight: 50.0)
-                        .scaleEffect(1.5)
-                }
-                .buttonStyle(.bordered)
-                .padding()
-                
-                Button {
-                    print("Button was tapped")
-                    showingAlert = true
-                } label: {
-                    Text("Tap me!")
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(.red)
-                }
-                .padding()
-                .alert("Important Message", isPresented: $showingAlert) {
-                    Button("Delete", role: .destructive) { }
-                    Button("Cancel", role: .cancel) { }
-                } message: {
-                    Text("Please read this!")
-                }
-                
-                
-                Button("Button 3") { }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.mint)
-                    .padding()
-                HStack {
-                    Button("Button 1") { }
-                        .buttonStyle(.bordered)
-                    Button("Button 2", role: .destructive) { }
-                        .buttonStyle(.bordered)
-                    Button("Button 3") { }
-                        .buttonStyle(.borderedProminent)
-                    Button("Button 4", role: .destructive) { }
-                        .buttonStyle(.borderedProminent)
-                }
-                
-                
-                Button("Delete selection", role: .destructive, action: executeDelete)
-                    .padding()
-                
-                AngularGradient(gradient: Gradient(colors: [.red, .yellow, .green, .blue, .purple, .red]), center: .center)
-                
-                //                LinearGradient(gradient: Gradient(stops: [
-                //                        Gradient.Stop(color: .white, location: 0.45),
-                //                        Gradient.Stop(color: .black, location: 0.55),
-                //                    ]), startPoint: .top, endPoint: .bottom)
-                
-                RadialGradient(gradient: Gradient(colors: [.blue, .black]), center: .center, startRadius: 20, endRadius: 200)
-                
-                Color.red
-                
-                Color.blue
-            }
+            let blue = Color(red: 0.1, green: 0.2, blue: 0.45)
+            let red = Color(red: 0.76, green: 0.15, blue: 0.26)
             
-            Text("Your content")
-                .foregroundStyle(.secondary)
-            //                .foregroundColor(.secondary)
-                .padding(50)
-                .background(.ultraThinMaterial)
+            RadialGradient(stops: [
+                Gradient.Stop(color: blue, location: 0.3),
+                Gradient.Stop(color: red, location: 0.3),
+            ], center: .top, startRadius: 200, endRadius: 700)
+                .ignoresSafeArea()
+            
+            VStack {
+                Spacer()
+                
+                Text("Guess The Flag")
+                    .font(.largeTitle.weight(.bold))
+                    .foregroundColor(.white)
+                
+                VStack(spacing: 15.0) {
+                    VStack {
+                        Text("Tap the flag of")
+                            .font(.subheadline.weight(.semibold))
+                        Text(countries[correctAnswer])
+                            .font(.largeTitle.weight(.semibold))
+                    }
+                    .foregroundStyle(.secondary)
+                    
+                    ForEach(0..<3) { i in
+                        Button {
+                            flagTapped(i)
+                        } label: {
+                            Image(countries[i])
+                                .renderingMode(.original)
+                                .clipShape(Capsule())
+                                .shadow(radius: 5)
+                        }
+                        
+                        .alert(scoreTitle, isPresented: $showingScore) {
+                            Button("Continue", action: askQuestion)
+                        } message: {
+                            Text("Your score is ???")
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 20)
+                .background(.regularMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+       
+                Spacer()
+                Spacer()
+                    
+                HStack {
+                    Spacer()
+                    
+                    Text("Score : ???")
+                        .font(.footnote)
+                        .fontWeight(.heavy)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.trailing)
+                        .padding(.trailing)
+                        .padding(.bottom, 5.0)
+                }
+                
+                Spacer()
+            }
+            .padding()
         }
-        .ignoresSafeArea()
     }
     
-    func executeDelete() {
-        print("Now deleting…")
+    private func askQuestion() {
+        countries.shuffle()
+        correctAnswer = Int.random(in: 0...2)
+    }
+    
+    private func flagTapped(_ number: Int) {
+        if number == correctAnswer {
+            scoreTitle = "Correct"
+        } else {
+            scoreTitle = "Wrong"
+        }
+
+        showingScore = true
     }
 }
 
