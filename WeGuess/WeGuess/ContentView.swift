@@ -10,7 +10,9 @@ import SwiftUI
 struct ContentView: View {
     @State private var showingAlert = false
     @State private var showingScore = false
-    @State private var scoreTitle = ""
+    @State private var scoreAlertTitle = ""
+    @State private var scoreAlertMessage = ""
+    @State private var score: Int = 0
     
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
@@ -52,10 +54,10 @@ struct ContentView: View {
                                 .shadow(radius: 5)
                         }
                         
-                        .alert(scoreTitle, isPresented: $showingScore) {
+                        .alert(scoreAlertTitle, isPresented: $showingScore) {
                             Button("Continue", action: askQuestion)
                         } message: {
-                            Text("Your score is ???")
+                            Text(scoreAlertMessage)
                         }
                     }
                 }
@@ -70,7 +72,7 @@ struct ContentView: View {
                 HStack {
                     Spacer()
                     
-                    Text("Score : ???")
+                    Text("Score: \(score)")
                         .font(.footnote)
                         .fontWeight(.heavy)
                         .foregroundColor(.white)
@@ -85,16 +87,29 @@ struct ContentView: View {
         }
     }
     
+    private func resetGame() {
+        score = 0
+        countries.shuffle()
+    }
+    
     private func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
     }
     
     private func flagTapped(_ number: Int) {
+        guard let correctEmjoi = ["✅", "🏆", "🥳", "🎉", "🎊", "🙌"].randomElement() else { return }
+        guard let wrongEmjoi = ["❌", "👎", "🚫"].randomElement() else { return }
+        
         if number == correctAnswer {
-            scoreTitle = "Correct"
+            scoreAlertTitle = "\(correctEmjoi) Correct \(correctEmjoi)"
+            score += 100
+            scoreAlertMessage = "+100\nYour score is: \(score)"
         } else {
-            scoreTitle = "Wrong"
+            let wrongAnswer = countries[number]
+            scoreAlertTitle = "\(wrongEmjoi) Wrong \(wrongEmjoi)"
+            score -= 50
+            scoreAlertMessage = "-50\nThat's the flag of \(wrongAnswer).\nYour score is: \(score)"
         }
 
         showingScore = true
