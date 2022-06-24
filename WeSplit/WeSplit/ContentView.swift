@@ -64,6 +64,7 @@ struct ContentView: View {
                 
                 Section {
                     Text(tipAmount, format: .currency(code: currencyCode))
+                        .foregroundColor((tipSelection == 0) ? .red : .primary)
                 } header: {
                     Text("TIP AMOUNT")
                 }
