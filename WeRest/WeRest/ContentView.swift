@@ -11,6 +11,14 @@ struct ContentView: View {
     @State private var sleepAmount = 8.0
     @State private var wakeUp = Date.now
     
+    var date: Date {
+        var components = DateComponents()
+        components.hour = 8
+        components.minute = 0
+        components.second = 0
+        return Calendar.current.date(from: components) ?? Date()
+    }
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -22,6 +30,9 @@ struct ContentView: View {
             
             DatePicker("Please enter a date", selection: $wakeUp, in: Date.now..., displayedComponents: [.hourAndMinute])
                 .labelsHidden()
+            
+            
+            Text(date, format: .dateTime.month().year().day())
         }
         .padding()
     }
