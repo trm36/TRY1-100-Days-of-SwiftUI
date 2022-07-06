@@ -11,6 +11,7 @@
 		016FA4A8287390A200AD14AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016FA4A7287390A200AD14AF /* ContentView.swift */; };
 		016FA4AA287390A300AD14AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 016FA4A9287390A300AD14AF /* Assets.xcassets */; };
 		016FA4AD287390A300AD14AF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 016FA4AC287390A300AD14AF /* Preview Assets.xcassets */; };
+		01E905F628755E0600B8BCFE /* SleepCalculator.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 01E905F528755E0600B8BCFE /* SleepCalculator.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		016FA4A7287390A200AD14AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		016FA4A9287390A300AD14AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		016FA4AC287390A300AD14AF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		01E905F528755E0600B8BCFE /* SleepCalculator.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SleepCalculator.mlmodel; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 		016FA4A4287390A200AD14AF /* WeRest */ = {
 			isa = PBXGroup;
 			children = (
+				01E905F528755E0600B8BCFE /* SleepCalculator.mlmodel */,
 				016FA4A5287390A200AD14AF /* WeRestApp.swift */,
 				016FA4A7287390A200AD14AF /* ContentView.swift */,
 				016FA4A9287390A300AD14AF /* Assets.xcassets */,
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01E905F628755E0600B8BCFE /* SleepCalculator.mlmodel in Sources */,
 				016FA4A8287390A200AD14AF /* ContentView.swift in Sources */,
 				016FA4A6287390A200AD14AF /* WeRestApp.swift in Sources */,
 			);
