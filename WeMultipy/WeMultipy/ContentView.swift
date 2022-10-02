@@ -17,7 +17,7 @@ struct MultiplicationQuestion {
     
     
     var questionText: String {
-        return multiplicandFirst ? "\(multiplicand)  ⨉  \(multiplier)  =  ??" : "\(multiplier)  ⨉  \(multiplicand)  =  ??"
+        return multiplicandFirst ? "\(multiplicand)  ⨉  \(multiplier)  =  " : "\(multiplier)  ⨉  \(multiplicand)  =  "
     }
     
     init(multiplicationTable: Int) {
@@ -39,139 +39,145 @@ struct ContentView: View {
     
     var body: some View {
         GeometryReader { geometery in
+            let size = geometery.size
             if multiplicationTable == nil {
-                VStack {
-                    // Question View
-                    Text("Select the multiplication table")
-                        .frame(width: geometery.size.width, height: geometery.size.height * 0.3)
-                    
-                    // Answer View
-                    ForEach(0..<7) { i in
-                        HStack {
-                            Spacer()
-                            
-                            let indexA = i * 2
-                            let indexB = indexA + 1
-                            
-                            Button {
-                                multiplicationTable = indexA
-                            } label: {
-                                Text("\(indexA)")
-                                    .font(.title)
-                                    .bold()
-                            }
-                            .foregroundColor(.white)
-                            .frame(minWidth: geometery.size.width / 3.0, minHeight: geometery.size.height / 12.0)
-                            .background(LinearGradient(gradient: Gradient(colors: [.red, .yellow]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                            
-                            Spacer()
-                            
-                            Button {
-                                multiplicationTable = indexB
-                            } label: {
-                                Text("\(indexB)")
-                                    .font(.title)
-                                    .bold()
-                            }
-                            .foregroundColor(.white)
-                            .frame(minWidth: geometery.size.width / 3.0, minHeight: geometery.size.height / 12.0)
-                            .background(LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                            
-                            Spacer()
-                        }
-                        
-                        Spacer()
-                    }
-                }
+                multiplicationTableEntryView(size: size)
             } else if questionsCount == nil {
-                VStack {
-                    // Question View
-                    Text("Select the number of questions")
-                        .frame(width: geometery.size.width, height: geometery.size.height * 0.3)
-                    
-                    // Answer View
-                    ForEach(questionsCountOptions, id: \.self) { i in
-                        Button {
-                            questionsCount = i
-                            generateQuestions()
-                            inputIsFocused = true
-                        } label: {
-                            Text("\(i)")
-                                .font(.title)
-                                .bold()
-                        }
-                        .foregroundColor(.white)
-                        .frame(minWidth: geometery.size.width / 3.0, minHeight: geometery.size.height / 12.0)
-                        .background(LinearGradient(gradient: Gradient(colors: [.green, .blue]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                    }
-                }
+                questionCountEntry(size: size)
             } else {
-                VStack {
-                    // Question View
-                    let question = questions?[questionIndex]
-                    Text(question?.questionText ?? "NO QUESTION")
-                        .frame(width: geometery.size.width, height: geometery.size.height * 0.3)
-                        .font(.title)
+                questionView(size: size)
+            }
+        }
+    }
+    
+    private func multiplicationTableEntryView(size: CGSize) -> some View {
+        VStack {
+            // Question View
+            Text("Select the multiplication table")
+                .frame(width: size.width, height: size.height)
+            
+            // Answer View
+            ForEach(0..<7) { i in
+                HStack {
+                    Spacer()
                     
-                    // Answer View
-                    TextField("Answer", text: Binding(
-                        get: {
-                            if let enteredAnswer = enteredAnswer {
-                                return String(enteredAnswer)
-                            } else {
-                                return ""
-                            }
-                        },
-                        set: { enteredAnswer = Int($0) }))
-                        .keyboardType(.numberPad)
-                        .padding(.horizontal, 24.0)
-                        .focused($inputIsFocused)
+                    let indexA = i * 2
+                    let indexB = indexA + 1
                     
                     Button {
-                        if let enteredAnswer = enteredAnswer, let question = question {
-//                            inputIsFocused = false
-                            print("\(enteredAnswer)")
-                            if question.product == enteredAnswer {
-                                print("\(question.questionText) - 🟢 CORRECT")
-                            } else {
-                                print("\(question.questionText) - 🔴 WRONG")
-                            }
-                            self.enteredAnswer = nil
-                            questionIndex += 1
-//                            inputIsFocused = true
-                        } else {
-                            print("❌ No Answer")
-                        }
-                        
+                        multiplicationTable = indexA
                     } label: {
-                        Text("Submit")
+                        Text("\(indexA)")
                             .font(.title)
                             .bold()
                     }
                     .foregroundColor(.white)
-                    .frame(minWidth: geometery.size.width / 3.0, minHeight: geometery.size.height / 12.0)
-                    .background(LinearGradient(gradient: Gradient(colors: [.blue, .purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .frame(minWidth: size.width / 3.0, minHeight: size.height / 12.0)
+                    .background(LinearGradient(gradient: Gradient(colors: [.red, .yellow]), startPoint: .topLeading, endPoint: .bottomTrailing))
                     .clipShape(RoundedRectangle(cornerRadius: 10.0))
                     
-//                    ForEach(questionsCountOptions, id: \.self) { i in
-//                        Button {
-//                            questionsCount = i
-//
-//                        } label: {
-//                            Text("\(i)")
-//                                .font(.title)
-//                                .bold()
-//                        }
-//                        .foregroundColor(.white)
-//                        .frame(minWidth: geometery.size.width / 3.0, minHeight: geometery.size.height / 12.0)
-//                        .background(LinearGradient(gradient: Gradient(colors: [.green, .blue]), startPoint: .topLeading, endPoint: .bottomTrailing))
-//                        .clipShape(RoundedRectangle(cornerRadius: 10.0))
-//                    }
+                    Spacer()
+                    
+                    Button {
+                        multiplicationTable = indexB
+                    } label: {
+                        Text("\(indexB)")
+                            .font(.title)
+                            .bold()
+                    }
+                    .foregroundColor(.white)
+                    .frame(minWidth: size.width / 3.0, minHeight: size.height / 12.0)
+                    .background(LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                    
+                    Spacer()
                 }
+                
+                Spacer()
             }
+        }
+    }
+    
+    private func questionCountEntry(size: CGSize) -> some View {
+        VStack {
+            // Question View
+            Text("Select the number of questions")
+                .frame(width: size.width, height: size.height * 0.3)
+            
+            // Answer View
+            ForEach(questionsCountOptions, id: \.self) { i in
+                Button {
+                    questionsCount = i
+                    generateQuestions()
+                    inputIsFocused = true
+                } label: {
+                    Text("\(i)")
+                        .font(.title)
+                        .bold()
+                }
+                .foregroundColor(.white)
+                .frame(minWidth: size.width / 3.0, minHeight: size.height / 12.0)
+                .background(LinearGradient(gradient: Gradient(colors: [.green, .blue]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                .clipShape(RoundedRectangle(cornerRadius: 10.0))
+            }
+        }
+    }
+    
+    private func questionView(size: CGSize) -> some View {
+        let question = questions?[questionIndex]
+        let questionText: String
+        
+        if let question = question {
+            questionText = question.questionText + (String(enteredAnswer) ?? "??")
+        } else {
+            questionText = "⚠️ NO QUESTION"
+        }
+        
+        return VStack {
+            // Question View
+            Text(questionText)
+                .frame(width: size.width, height: size.height * 0.3)
+                .font(.title)
+            
+            // Answer View
+            TextField("Answer", text: Binding(
+                get: {
+                    if let enteredAnswer = enteredAnswer {
+                        return String(enteredAnswer)
+                    } else {
+                        return ""
+                    }
+                },
+                set: { enteredAnswer = Int($0) }))
+                .keyboardType(.numberPad)
+                .padding(.horizontal, 24.0)
+                .focused($inputIsFocused)
+            
+            Button {
+                if let enteredAnswer = enteredAnswer, let question = question {
+//                            inputIsFocused = false
+                    print("\(enteredAnswer)")
+                    if question.product == enteredAnswer {
+                        print("\(question.questionText) - 🟢 CORRECT")
+                    } else {
+                        print("\(question.questionText) - 🔴 WRONG")
+                    }
+                    self.enteredAnswer = nil
+                    questionIndex += 1
+//                            inputIsFocused = true
+                } else {
+                    print("❌ No Answer")
+                }
+                
+            } label: {
+                Text("Submit")
+                    .font(.title)
+                    .bold()
+            }
+            .foregroundColor(.white)
+            .frame(minWidth: size.width / 3.0, minHeight: size.height / 12.0)
+            .background(LinearGradient(gradient: Gradient(colors: [.blue, .purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
+            .clipShape(RoundedRectangle(cornerRadius: 10.0))
         }
     }
     
@@ -195,5 +201,12 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+extension String {
+    init?<T : CustomStringConvertible>(_ value : T?) {
+        guard let value = value else { return nil }
+        self.init(describing: value)
     }
 }
