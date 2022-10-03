@@ -27,7 +27,7 @@ struct MultiplicationQuestion {
 
 struct ContentView: View {
     
-    @State private var multiplicationTable: Int? = 5
+    @State private var multiplicationTable: Int? = nil
     @State private var questionsCount: Int? = nil
     private var questionsCountOptions: [Int] = [5, 10, 20]
     @State private var questions: [MultiplicationQuestion]? = nil
@@ -54,7 +54,7 @@ struct ContentView: View {
         VStack {
             // Question View
             Text("Select the multiplication table")
-                .frame(width: size.width, height: size.height)
+                .frame(width: size.width, height: size.height * 0.3)
             
             // Answer View
             ForEach(0..<7) { i in
@@ -70,11 +70,11 @@ struct ContentView: View {
                         Text("\(indexA)")
                             .font(.title)
                             .bold()
+                            .foregroundColor(.white)
+                            .frame(minWidth: size.width / 3.0, minHeight: size.height / 12.0)
+                            .background(LinearGradient(gradient: Gradient(colors: [.red, .yellow]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
                     }
-                    .foregroundColor(.white)
-                    .frame(minWidth: size.width / 3.0, minHeight: size.height / 12.0)
-                    .background(LinearGradient(gradient: Gradient(colors: [.red, .yellow]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .clipShape(RoundedRectangle(cornerRadius: 10.0))
                     
                     Spacer()
                     
@@ -83,12 +83,11 @@ struct ContentView: View {
                     } label: {
                         Text("\(indexB)")
                             .font(.title)
-                            .bold()
+                            .bold().foregroundColor(.white)
+                            .frame(minWidth: size.width / 3.0, minHeight: size.height / 12.0)
+                            .background(LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
                     }
-                    .foregroundColor(.white)
-                    .frame(minWidth: size.width / 3.0, minHeight: size.height / 12.0)
-                    .background(LinearGradient(gradient: Gradient(colors: [.yellow, .green]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .clipShape(RoundedRectangle(cornerRadius: 10.0))
                     
                     Spacer()
                 }
@@ -114,11 +113,11 @@ struct ContentView: View {
                     Text("\(i)")
                         .font(.title)
                         .bold()
+                        .foregroundColor(.white)
+                        .frame(minWidth: size.width / 3.0, minHeight: size.height / 12.0)
+                        .background(LinearGradient(gradient: Gradient(colors: [.green, .blue]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .clipShape(RoundedRectangle(cornerRadius: 10.0))
                 }
-                .foregroundColor(.white)
-                .frame(minWidth: size.width / 3.0, minHeight: size.height / 12.0)
-                .background(LinearGradient(gradient: Gradient(colors: [.green, .blue]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                .clipShape(RoundedRectangle(cornerRadius: 10.0))
             }
         }
     }
@@ -133,51 +132,54 @@ struct ContentView: View {
             questionText = "⚠️ NO QUESTION"
         }
         
-        return VStack {
-            // Question View
-            Text(questionText)
-                .frame(width: size.width, height: size.height * 0.3)
-                .font(.title)
-            
-            // Answer View
-            TextField("Answer", text: Binding(
-                get: {
-                    if let enteredAnswer = enteredAnswer {
-                        return String(enteredAnswer)
-                    } else {
-                        return ""
-                    }
-                },
-                set: { enteredAnswer = Int($0) }))
-                .keyboardType(.numberPad)
-                .padding(.horizontal, 24.0)
-                .focused($inputIsFocused)
-            
-            Button {
-                if let enteredAnswer = enteredAnswer, let question = question {
-//                            inputIsFocused = false
-                    print("\(enteredAnswer)")
-                    if question.product == enteredAnswer {
-                        print("\(question.questionText) - 🟢 CORRECT")
-                    } else {
-                        print("\(question.questionText) - 🔴 WRONG")
-                    }
-                    self.enteredAnswer = nil
-                    questionIndex += 1
-//                            inputIsFocused = true
-                } else {
-                    print("❌ No Answer")
-                }
-                
-            } label: {
-                Text("Submit")
+        return ZStack {
+            VStack {
+                // Question View
+                Text(questionText)
+                    .frame(width: size.width, height: size.height * 0.3)
                     .font(.title)
-                    .bold()
+                
+                // Answer View
+                TextField("Answer", text: Binding(
+                    get: {
+                        if let enteredAnswer = enteredAnswer {
+                            return String(enteredAnswer)
+                        } else {
+                            return ""
+                        }
+                    },
+                    set: { enteredAnswer = Int($0) }))
+                    .keyboardType(.numberPad)
+                    .padding(.horizontal, 24.0)
+                    .focused($inputIsFocused)
+                
+                Button {
+                    if let enteredAnswer = enteredAnswer, let question = question {
+                        if question.product == enteredAnswer {
+                            print("\(question.questionText) - 🟢 CORRECT")
+                            score += 100
+                        } else {
+                            print("\(question.questionText) - 🔴 WRONG")
+                            score += 0
+                        }
+                        self.enteredAnswer = nil
+                        questionIndex += 1
+                    } else {
+                        print("❌ No Answer")
+                    }
+                    
+                } label: {
+                    Text("Submit")
+                        .font(.title)
+                        .bold()
+                        .foregroundColor(.white)
+                        .frame(minWidth: size.width / 3.0, minHeight: size.height / 12.0)
+                        .background(LinearGradient(gradient: Gradient(colors: [.blue, .purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                }
             }
-            .foregroundColor(.white)
-            .frame(minWidth: size.width / 3.0, minHeight: size.height / 12.0)
-            .background(LinearGradient(gradient: Gradient(colors: [.blue, .purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
-            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+            
+            Text("Score: \(score)")
         }
     }
     
