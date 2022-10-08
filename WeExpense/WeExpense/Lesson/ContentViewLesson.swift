@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ContentViewLesson.swift
 //  WeExpense
 //
 //  Created by Taylor on 04 October 2022.
@@ -12,7 +12,7 @@ struct User: Codable {
     let lastName: String
 }
 
-struct ContentView: View {
+struct ContentViewLesson: View {
     
     @State private var showingSheet = false
     @State private var numbers = [Int]()
@@ -81,9 +81,9 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ContentViewLesson_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentViewLesson()
     }
 }
 
