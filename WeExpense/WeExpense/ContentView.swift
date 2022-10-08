@@ -7,20 +7,94 @@
 
 import SwiftUI
 
+struct User: Codable {
+    let firstName: String
+    let lastName: String
+}
+
 struct ContentView: View {
+    
+    @State private var showingSheet = false
+    @State private var numbers = [Int]()
+    @State private var currentNumber = 1
+    @AppStorage("tapCount") private var tapCount = 0
+    @State private var user = User(firstName: "Taylor", lastName: "Swift")
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            VStack {
+                List {
+                    ForEach(numbers, id: \.self) {
+                        Text("Row \($0)")
+                    }
+                    .onDelete(perform: removeRows)
+                }
+                
+                Button("Add Number") {
+                    numbers.append(currentNumber)
+                    currentNumber += 1
+                }
+                
+                Group {
+                    Spacer()
+                    Spacer()
+                    
+                    Button("Show Sheet") {
+                        showingSheet.toggle()
+                    }
+                    .sheet(isPresented: $showingSheet) {
+                        SecondView(name: "World")
+                    }
+                }
+                
+                Group {
+                    Spacer()
+                    Spacer()
+                    
+                    Button("Tap count: \(tapCount)") {
+                        tapCount += 1
+                    }
+                }
+                
+                Group {
+                    Spacer()
+                    Spacer()
+                    
+                    Button("Save User") {
+                        let encoder = JSONEncoder()
+                        
+                        if let data = try? encoder.encode(user) {
+                            UserDefaults.standard.set(data, forKey: "UserData")
+                        }
+                    }
+                }
+                
+            }
+            .toolbar {
+                EditButton()
+            }
         }
-        .padding()
+    }
+    
+    func removeRows(at offsets: IndexSet) {
+        numbers.remove(atOffsets: offsets)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct SecondView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    let name: String
+    
+    var body: some View {
+        Button("Dismiss \(name)") {
+            dismiss()
+        }
     }
 }
