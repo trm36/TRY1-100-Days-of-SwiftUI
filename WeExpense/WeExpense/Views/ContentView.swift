@@ -26,7 +26,18 @@ struct ContentView: View {
                         
                         Spacer()
                         
-                        Text(expenseItem.amount, format: .currency(code: ExpenseController.currencyCode))
+                        let amount = expenseItem.amount
+                        
+                        if amount < 10.0 {
+                            Text(expenseItem.amount, format: .currency(code: ExpenseController.currencyCode))
+                                .fontWeight(.regular)
+                        } else if amount < 100.0 {
+                            Text(expenseItem.amount, format: .currency(code: ExpenseController.currencyCode))
+                                .fontWeight(.medium)
+                        } else {
+                            Text(expenseItem.amount, format: .currency(code: ExpenseController.currencyCode))
+                                .fontWeight(.semibold)
+                        }
                     }
                 }
                 .onDelete(perform: removeItems)
