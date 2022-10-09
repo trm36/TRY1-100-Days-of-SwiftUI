@@ -28,15 +28,34 @@ struct ContentView: View {
 //            .frame(maxWidth: .infinity)
 //        }
         
-        NavigationView {
-            List(0..<100) { row in
-                NavigationLink {
-                    Text("Detail \(row)")
-                } label: {
-                    Text("Row \(row)")
+        
+//        NavigationView {
+//            List(0..<100) { row in
+//                NavigationLink {
+//                    Text("Detail \(row)")
+//                } label: {
+//                    Text("Row \(row)")
+//                }
+//            }
+//            .navigationTitle("SwiftUI")
+//        }
+        
+        
+        Button("Decode JSON") {
+            let input = """
+            {
+                "name": "Taylor Swift",
+                "address": {
+                    "street": "555 Taylor Swift Avenue",
+                    "city": "Nashville",
+                    "state": "TN"
                 }
             }
-            .navigationTitle("SwiftUI")
+            """
+            
+            let data = Data(input.utf8)
+            guard let user = try? JSONDecoder().decode(User.self, from: data) else { return }
+            print(user.address.street)
         }
     }
 }
@@ -45,6 +64,17 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+}
+
+struct User: Codable {
+    let name: String
+    let address: Address
+}
+
+struct Address: Codable {
+    let street: String
+    let city: String
+    let state: String
 }
 
 struct CustomText: View {
