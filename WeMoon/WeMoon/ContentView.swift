@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    let layout = [
+        GridItem(.adaptive(minimum: 80.0, maximum: 120.0)),
+    ]
+    
     var body: some View {
 //        GeometryReader { geo in
 //            Image("Example")
@@ -41,21 +45,30 @@ struct ContentView: View {
 //        }
         
         
-        Button("Decode JSON") {
-            let input = """
-            {
-                "name": "Taylor Swift",
-                "address": {
-                    "street": "555 Taylor Swift Avenue",
-                    "city": "Nashville",
-                    "state": "TN"
+//        Button("Decode JSON") {
+//            let input = """
+//            {
+//                "name": "Taylor Swift",
+//                "address": {
+//                    "street": "555 Taylor Swift Avenue",
+//                    "city": "Nashville",
+//                    "state": "TN"
+//                }
+//            }
+//            """
+//
+//            let data = Data(input.utf8)
+//            guard let user = try? JSONDecoder().decode(User.self, from: data) else { return }
+//            print(user.address.street)
+//        }
+        
+        
+        ScrollView {
+            LazyVGrid(columns: layout) {
+                ForEach(0..<1000) {
+                    Text("Item \($0)")
                 }
             }
-            """
-            
-            let data = Data(input.utf8)
-            guard let user = try? JSONDecoder().decode(User.self, from: data) else { return }
-            print(user.address.street)
         }
     }
 }
