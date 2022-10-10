@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ContentViewLesson.swift
 //  WeMoon
 //
 //  Created by Taylor on 08 October 2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ContentViewLesson: View {
     let layout = [
         GridItem(.adaptive(minimum: 80.0, maximum: 120.0)),
     ]
@@ -73,9 +73,9 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ContentViewLesson_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentViewLesson()
     }
 }
 
