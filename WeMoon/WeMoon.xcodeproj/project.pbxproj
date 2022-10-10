@@ -18,6 +18,8 @@
 		01469B6E28F3AF320040351B /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01469B6D28F3AF320040351B /* Bundle-Decodable.swift */; };
 		01469B7228F3B18A0040351B /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01469B7128F3B18A0040351B /* Mission.swift */; };
 		01469B7428F3C05B0040351B /* Color-Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01469B7328F3C05B0040351B /* Color-Theme.swift */; };
+		01469B7628F3C3410040351B /* MissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01469B7528F3C3410040351B /* MissionView.swift */; };
+		01469B7828F3C92A0040351B /* AstronautView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01469B7728F3C92A0040351B /* AstronautView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		01469B6D28F3AF320040351B /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		01469B7128F3B18A0040351B /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
 		01469B7328F3C05B0040351B /* Color-Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color-Theme.swift"; sourceTree = SOURCE_ROOT; };
+		01469B7528F3C3410040351B /* MissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionView.swift; sourceTree = "<group>"; };
+		01469B7728F3C92A0040351B /* AstronautView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronautView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				01469B6128F3AC190040351B /* ContentView.swift */,
+				01469B7528F3C3410040351B /* MissionView.swift */,
+				01469B7728F3C92A0040351B /* AstronautView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -193,6 +199,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				01469B5628F2722E0040351B /* ContentViewLesson.swift in Sources */,
+				01469B7828F3C92A0040351B /* AstronautView.swift in Sources */,
+				01469B7628F3C3410040351B /* MissionView.swift in Sources */,
 				01469B5428F2722E0040351B /* WeMoonApp.swift in Sources */,
 				01469B7428F3C05B0040351B /* Color-Theme.swift in Sources */,
 				01469B6E28F3AF320040351B /* Bundle-Decodable.swift in Sources */,
