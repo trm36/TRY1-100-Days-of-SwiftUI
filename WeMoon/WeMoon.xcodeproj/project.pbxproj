@@ -20,6 +20,9 @@
 		01469B7428F3C05B0040351B /* Color-Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01469B7328F3C05B0040351B /* Color-Theme.swift */; };
 		01469B7628F3C3410040351B /* MissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01469B7528F3C3410040351B /* MissionView.swift */; };
 		01469B7828F3C92A0040351B /* AstronautView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01469B7728F3C92A0040351B /* AstronautView.swift */; };
+		01469B7A28F5C9180040351B /* CrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01469B7928F5C9180040351B /* CrewView.swift */; };
+		01469B7C28F5C9710040351B /* CrewMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01469B7B28F5C9710040351B /* CrewMember.swift */; };
+		01469B7E28F5CC510040351B /* Partition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01469B7D28F5CC510040351B /* Partition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,9 @@
 		01469B7328F3C05B0040351B /* Color-Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color-Theme.swift"; sourceTree = SOURCE_ROOT; };
 		01469B7528F3C3410040351B /* MissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionView.swift; sourceTree = "<group>"; };
 		01469B7728F3C92A0040351B /* AstronautView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronautView.swift; sourceTree = "<group>"; };
+		01469B7928F5C9180040351B /* CrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewView.swift; sourceTree = "<group>"; };
+		01469B7B28F5C9710040351B /* CrewMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewMember.swift; sourceTree = "<group>"; };
+		01469B7D28F5CC510040351B /* Partition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Partition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +110,7 @@
 			children = (
 				01469B6828F3AD400040351B /* Astronaut.swift */,
 				01469B7128F3B18A0040351B /* Mission.swift */,
+				01469B7B28F5C9710040351B /* CrewMember.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -122,8 +129,18 @@
 				01469B6128F3AC190040351B /* ContentView.swift */,
 				01469B7528F3C3410040351B /* MissionView.swift */,
 				01469B7728F3C92A0040351B /* AstronautView.swift */,
+				01469B7F28F5CC7D0040351B /* Helper Views */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		01469B7F28F5CC7D0040351B /* Helper Views */ = {
+			isa = PBXGroup;
+			children = (
+				01469B7D28F5CC510040351B /* Partition.swift */,
+				01469B7928F5C9180040351B /* CrewView.swift */,
+			);
+			path = "Helper Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,12 +218,15 @@
 				01469B5628F2722E0040351B /* ContentViewLesson.swift in Sources */,
 				01469B7828F3C92A0040351B /* AstronautView.swift in Sources */,
 				01469B7628F3C3410040351B /* MissionView.swift in Sources */,
+				01469B7E28F5CC510040351B /* Partition.swift in Sources */,
 				01469B5428F2722E0040351B /* WeMoonApp.swift in Sources */,
 				01469B7428F3C05B0040351B /* Color-Theme.swift in Sources */,
+				01469B7A28F5C9180040351B /* CrewView.swift in Sources */,
 				01469B6E28F3AF320040351B /* Bundle-Decodable.swift in Sources */,
 				01469B6228F3AC190040351B /* ContentView.swift in Sources */,
 				01469B7228F3B18A0040351B /* Mission.swift in Sources */,
 				01469B6928F3AD400040351B /* Astronaut.swift in Sources */,
+				01469B7C28F5C9710040351B /* CrewMember.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

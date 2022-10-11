@@ -15,7 +15,6 @@
 
 import SwiftUI
 
-let astronauts: [String : Astronaut] = Bundle.main.decode("astronauts.json")
 let missions: [Mission] = Bundle.main.decode("missions.json")
 
 let layout = [
@@ -29,7 +28,7 @@ struct ContentView: View {
                 LazyVGrid(columns: layout) {
                     ForEach(missions) { mission in
                         NavigationLink {
-                            MissionView(mission: mission, allAstronauts: astronauts)
+                            MissionView(mission: mission)
                         } label: {
                             VStack {
                                 Image(mission.image)
